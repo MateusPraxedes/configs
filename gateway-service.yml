@@ -6,14 +6,6 @@ spring:
 #      default-filters:
 #        - name: LogFilter
       routes:
-        - id: catalogRoute
-          uri: lb://CATALOG-SERVICE
-          predicates:
-            - Path=/catalog-api/**
-        - id: movieRoute
-          uri: lb://MOVIE-SERVICE
-          predicates:
-            - Path=/movie-api/**
         - id: subscriptionRoute
           uri: lb://SUBSCRIPTION-SERVICE
           predicates:
@@ -24,6 +16,14 @@ spring:
           uri: lb://COURSE-SERVICE
           predicates:
             - Path=/course/**
+        - id: catalogRoute
+          uri: lb://CATALOG-SERVICE
+          predicates:
+            - Path=/catalog/**
+        - id: movieRoute
+          uri: lb://MOVIE-SERVICE
+          predicates:
+            - Path=/movie/**
           filters:
             - AddRequestHeader=course-request-header, custom-course-request-header
             - AddResponseHeader=course-response-header, custom-course-response-header
