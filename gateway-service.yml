@@ -1,17 +1,25 @@
 server:
-  port: 8088
+  port: 8080
 spring:
   cloud:
     gateway:
-      default-filters:
-        - name: LogFilter
+#      default-filters:
+#        - name: LogFilter
       routes:
+        - id: catalogRoute
+          uri: lb://CATALOG-SERVICE
+          predicates:
+            - Path=/catalog-api/**
+        - id: movieRoute
+          uri: lb://MOVIE-SERVICE
+          predicates:
+            - Path=/movie-api/**
         - id: subscriptionRoute
           uri: lb://SUBSCRIPTION-SERVICE
           predicates:
-            - Path=//subscription/**
-          filters:
-            - name: SubscriptionFilter
+            - Path=/subscription/**
+#          filters:
+#            - name: SubscriptionFilter
         - id: courseRoute
           uri: lb://COURSE-SERVICE
           predicates:
@@ -19,27 +27,4 @@ spring:
           filters:
             - AddRequestHeader=course-request-header, custom-course-request-header
             - AddResponseHeader=course-response-header, custom-course-response-header
-        - id: animalRoute
-          uri: lb://ANIMAL-SERVICE
-          predicates:
-            - Path=//animal/**
-          filters:
-            - name: AnimalFilter
-        - id: specieRoute
-          uri: lb://SPECIE-SERVICE
-          predicates:
-            - Path=//specie/**
-          filters:
-            - name: SpecieFilter
-        - id: movieRoute
-          uri: lb://MOVIE-SERVICE
-          predicates:
-            - Path=//movies/**
-          filters:
-            - name: MovieFilter
-         - id: catalogRoute
-          uri: lb://CATALOG-SERVICE
-          predicates:
-            - Path=//catalog/**
-          filters:
-            - name: CatalogFilter
+
