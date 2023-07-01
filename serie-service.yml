@@ -1,4 +1,4 @@
 server:
-  port: 8003
+  port: 8094
   servlet:
     context-path: /serie-api
