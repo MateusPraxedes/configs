@@ -1,15 +1,15 @@
 spring:
   zipkin:
-    base-url: http://zipkin-service:9411/
+    base-url: http://localhost:9411/
   rabbitmq:
     username: guest
     password: guest
-    host: rabbit-service
+    host: localhost
     port: 5672
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-server:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
 management:
   health:
     circuitbreakers:
@@ -24,23 +24,23 @@ management:
   endpoint:
     health:
       show-details: always
-info:
-  author: Tulio L. Viglione
-  mail: tulio.l.viglione@gmail.com
-  cel: 313313131
 server:
   port: ${PORT:9999}
 message: Mensagem generica
 
 queue:
-  serie-service: queue-serie-service
   movie-service: queue-movie-service
+  serie-service: queue-serie-service
+  catalog-serie-service: queue-catalog-serie-service
+  catalog-movie-service: queue-catalog-movie-service
+  
+
 
 ## Resilience4J configs for CircuitBreaker Pattern
 resilience4j:
   circuitbreaker:
     instances:
-      serie-service:
+      movie-service:
         allowHealthIndicatorToFail: false
         registerHealthIndicator: true
         slidingWindowType: COUNT_BASED
